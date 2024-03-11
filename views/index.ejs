@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body{
+            margin:20px;
+            background-color:black;
+
+
+
+        }
+        button{
+            text-align:center;
+            
+
+        }
+        h2{
+            color:white;
+            text-align:center;
+
+        }
+        .chat{
+            background-color:grey;
+            padding:20px;
+            border-radius:15px;
+            margin:10px;
+
+        }
+        .msg{
+            background-color:#D4F1F4;
+            color:#05445E;
+        }
+    </style>
+    <title>Connect</title>
+</head>
+<body>
+    <h2>All Chats!</h2>
+    <form method="GET" action="/chats/new">
+        <button>New Chat</button>
+    </form>
+    <br/>
+    <%for(let chat of chats){%>
+        <div class="chat" style="background-color:powderblue">
+            <p>From:<%=chat.from%></p>
+            <p>To:<%=chat.to%></p>
+            <div class="msg" >
+                <p>Message:<%=chat.msg%></p>
+                <form method="GET" action="/chats/<%=chat._id%>/edit">
+                    <button>Edit</button>
+                </form>
+    
+            </div>
+            <p><%=chat.created_at.toString().split(" ").slice(0,4).join(" ")%></p>
+            <br>
+            <form method="POST" action="/chats/<%=chat._id%>/?_method=DELETE">
+                <button>Delete</button>
+
+            </form>
+            <form method="GET" action="/chats/<%=chat._id%>">
+                <button>Show</button>
+            </form>
+            
+        <hr/>
+           
+        </div>
+        <%}%>
+
+    
+</body>
+</html>
